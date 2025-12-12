@@ -1,25 +1,20 @@
-import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import Services from "@/components/Services";
-import About from "@/components/About";
-import WhyUs from "@/components/WhyUs";
-import ContactForm from "@/components/ContactForm";
-import Footer from "@/components/Footer";
+import { getDecision } from "@/lib/cloak";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
+import { match } from "ts-pattern";
 
-export default function Page() {
+const WhitePage = dynamic(() => import("./white").then((mod) => mod.WhitePage));
+const OfferPage = dynamic(() => import("./offer").then((mod) => mod.OfferPage));
+
+export default async function Page() {
+  const decision = await getDecision();
+
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <main>
-        <Hero />
-        <Services />
-        <About />
-        <WhyUs />
-        <ContactForm />
-      </main>
-      <Footer />
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      {match(decision)
+        .with("white", () => <WhitePage />)
+        .with("offer", () => <OfferPage />)
+        .exhaustive()}
+    </Suspense>
   );
 }
-
-

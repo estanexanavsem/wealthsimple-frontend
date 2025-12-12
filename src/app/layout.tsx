@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
-import "./globals.css";
 import { Providers } from "./providers";
+
+import { getDecision } from "@/lib/cloak";
 
 export const metadata: Metadata = {
   title: "InvestBooks | Investment Portfolio Accounting for Canadians",
@@ -38,11 +39,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  const decision = await getDecision();
+
   return (
     <html lang="en">
       <body>
-        <Providers>{children}</Providers>
+        <Providers decision={decision}>{children}</Providers>
       </body>
     </html>
   );

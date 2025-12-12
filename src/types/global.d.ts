@@ -1,1 +1,4 @@
-declare type Decision = "white" | "offer";
+declare module "*.css" {
+  const content: string;
+  export default content;
+}

@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/white/ui/button";
 import { ArrowRight, Calculator, FileText, Users } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/white/ui/dialog";
+import { Input } from "@/components/white/ui/input";
 import Image from "next/image";
 
 const Hero = () => {
@@ -35,7 +35,7 @@ const Hero = () => {
         <div className="absolute inset-0">
           <Image
             fill
-            src="/hero-bg.jpg"
+            src="/hero.jpg"
             alt="Professional accountant analyzing investment portfolio data"
             className="w-full h-full object-cover"
           />

@@ -7,14 +7,35 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
+
+# Build outputs
 dist
 dist-ssr
 .next
 out
+.vercel
+
+# Tooling caches
 .turbo
-*.local
-.env*.local
+.cache
+.eslintcache
+.stylelintcache
+.swc
+.parcel-cache
+.vite
+
+# TypeScript incremental build info
+*.tsbuildinfo
+
+# Environment files (keep .env.example committed if you use one)
+.env
+.env.local
+.env.*.local
+
+# Bun
+bun.lockb
 
 # Editor directories and files
 .vscode/*
@@ -26,3 +47,11 @@ out
 *.njsproj
 *.sln
 *.sw?
+
+# Test / coverage
+coverage
+.nyc_output
+*.lcov
+
+# Misc
+*.tgz

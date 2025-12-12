@@ -33,7 +33,7 @@ type CloakRequestPayload = {
 
 type CloakResponse = {
   filter_type?: string;
-  filter_page?: Decision;
+  filter_page?: CloakDecision;
 };
 
 export const config = {
@@ -136,14 +136,12 @@ async function callCloakApi(payload: CloakRequestPayload): Promise<CloakResponse
     });
 
     if (!SUCCESS_CODES.has(response.status)) {
-      const responseText = await response.text().catch(() => "");
       return null;
     }
 
     try {
       return (await response.json()) as CloakResponse;
     } catch {
-      const responseText = await response.text().catch(() => "");
       return null;
     }
   } finally {

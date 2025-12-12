@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/white/ui/button";
 import { Menu, X, BookOpen } from "lucide-react";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/white/ui/dialog";
+import { Input } from "@/components/white/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
 const Header = () => {

@@ -1,17 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/white/ui/button";
+import { Input } from "@/components/white/ui/input";
+import { Textarea } from "@/components/white/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { 
-  MapPin, 
-  Phone, 
-  Mail, 
-  Clock,
-  Send
-} from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
 
 const contactInfo = [
   {
@@ -85,8 +79,7 @@ const ContactForm = () => {
             Get In Touch
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground mb-6">
-            Questions About Your{" "}
-            <span className="text-gradient">Portfolio?</span>
+            Questions About Your <span className="text-gradient">Portfolio?</span>
           </h2>
           <p className="text-muted-foreground text-lg">
             Our team of accounting professionals is ready to help with your investment bookkeeping needs.

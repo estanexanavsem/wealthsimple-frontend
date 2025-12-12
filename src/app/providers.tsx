@@ -1,13 +1,27 @@
 "use client";
 
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/white/ui/tooltip";
+import { Toaster } from "@/components/white/ui/toaster";
+import { Toaster as Sonner } from "@/components/white/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
-export function Providers({ children }: { children: ReactNode }) {
+import { match } from "ts-pattern";
+
+type ProvidersProps = {
+  decision: CloakDecision;
+  children: ReactNode;
+};
+
+export function Providers({ decision, children }: ProvidersProps) {
   const [queryClient] = useState(() => new QueryClient());
+
+  useEffect(() => {
+    match(decision)
+      .with("white", () => import("./white.css"))
+      .with("offer", () => import("./offer.css"))
+      .exhaustive();
+  }, [decision]);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -19,5 +33,3 @@ export function Providers({ children }: { children: ReactNode }) {
     </QueryClientProvider>
   );
 }
-
-
