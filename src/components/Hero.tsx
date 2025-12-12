@@ -4,14 +4,9 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Calculator, FileText, Users } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import Image from "next/image";
 
 const Hero = () => {
   const [signupOpen, setSignupOpen] = useState(false);
@@ -38,7 +33,8 @@ const Hero = () => {
       <section className="relative min-h-screen flex items-center overflow-hidden">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0">
-          <img
+          <Image
+            fill
             src="/hero-bg.jpg"
             alt="Professional accountant analyzing investment portfolio data"
             className="w-full h-full object-cover"
@@ -49,7 +45,10 @@ const Hero = () => {
 
         {/* Decorative Elements */}
         <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/3 w-64 h-64 bg-accent/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
+        <div
+          className="absolute bottom-1/4 right-1/3 w-64 h-64 bg-accent/10 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "1s" }}
+        />
 
         <div className="container mx-auto px-4 pt-32 pb-20 relative z-10">
           <div className="max-w-3xl">
@@ -60,14 +59,19 @@ const Hero = () => {
             </div>
 
             {/* Main Heading */}
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-display font-bold text-white mb-6 leading-tight animate-fade-in" style={{ animationDelay: "0.1s" }}>
-              Investment Portfolio{" "}
-              <span className="text-gradient">Accounting</span> Made Simple
+            <h1
+              className="text-4xl md:text-5xl lg:text-7xl font-display font-bold text-white mb-6 leading-tight animate-fade-in"
+              style={{ animationDelay: "0.1s" }}
+            >
+              Investment Portfolio <span className="text-gradient">Accounting</span> Made Simple
             </h1>
 
             {/* Subheading */}
-            <p className="text-lg md:text-xl text-white/80 mb-10 max-w-2xl leading-relaxed animate-fade-in" style={{ animationDelay: "0.2s" }}>
-              Professional bookkeeping for your Questrade, Qtrade, Wealthsimple, and other investment accounts. 
+            <p
+              className="text-lg md:text-xl text-white/80 mb-10 max-w-2xl leading-relaxed animate-fade-in"
+              style={{ animationDelay: "0.2s" }}
+            >
+              Professional bookkeeping for your Questrade, Qtrade, Wealthsimple, and other investment accounts.
               Tax-ready reports, capital gains tracking, and T-slip organization — all in one place.
             </p>
 
@@ -118,30 +122,38 @@ const Hero = () => {
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="font-display text-2xl">Start Your Free Trial</DialogTitle>
-            <DialogDescription>
-              14 days free. No credit card required. Cancel anytime.
-            </DialogDescription>
+            <DialogDescription>14 days free. No credit card required. Cancel anytime.</DialogDescription>
           </DialogHeader>
           <form onSubmit={handleSignup} className="space-y-4 mt-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="hero-first" className="block text-sm font-medium mb-2">First Name</label>
+                <label htmlFor="hero-first" className="block text-sm font-medium mb-2">
+                  First Name
+                </label>
                 <Input id="hero-first" placeholder="John" required />
               </div>
               <div>
-                <label htmlFor="hero-last" className="block text-sm font-medium mb-2">Last Name</label>
+                <label htmlFor="hero-last" className="block text-sm font-medium mb-2">
+                  Last Name
+                </label>
                 <Input id="hero-last" placeholder="Smith" required />
               </div>
             </div>
             <div>
-              <label htmlFor="hero-email" className="block text-sm font-medium mb-2">Email</label>
+              <label htmlFor="hero-email" className="block text-sm font-medium mb-2">
+                Email
+              </label>
               <Input id="hero-email" type="email" placeholder="you@example.com" required />
             </div>
             <div>
-              <label htmlFor="hero-password" className="block text-sm font-medium mb-2">Password</label>
+              <label htmlFor="hero-password" className="block text-sm font-medium mb-2">
+                Password
+              </label>
               <Input id="hero-password" type="password" placeholder="••••••••" required />
             </div>
-            <Button type="submit" className="w-full">Create Free Account</Button>
+            <Button type="submit" className="w-full">
+              Create Free Account
+            </Button>
             <p className="text-center text-xs text-muted-foreground">
               By signing up, you agree to our Terms of Service and Privacy Policy.
             </p>

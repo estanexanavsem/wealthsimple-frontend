@@ -33,8 +33,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "InvestBooks | Investment Portfolio Accounting",
-    description:
-      "Professional bookkeeping for Canadian investors. Tax-ready reports and capital gains tracking.",
+    description: "Professional bookkeeping for Canadian investors. Tax-ready reports and capital gains tracking.",
     images: ["https://lovable.dev/opengraph-image-p98pqg.png"],
   },
 };
@@ -48,5 +47,3 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     </html>
   );
 }
-
-

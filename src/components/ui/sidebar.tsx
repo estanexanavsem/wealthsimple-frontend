@@ -26,6 +26,16 @@ type SidebarCssVars = React.CSSProperties & {
   "--sidebar-width-icon"?: string;
 };
 
+function hashStringToUint32(value: string): number {
+  // Deterministic, pure hash (FNV-1a 32-bit).
+  let hash = 0x811c9dc5;
+  for (let i = 0; i < value.length; i += 1) {
+    hash ^= value.charCodeAt(i);
+    hash = Math.imul(hash, 0x01000193);
+  }
+  return hash >>> 0;
+}
+
 type SidebarContext = {
   state: "expanded" | "collapsed";
   open: boolean;
@@ -538,10 +548,17 @@ const SidebarMenuSkeleton = React.forwardRef<
     showIcon?: boolean;
   }
 >(({ className, showIcon = false, ...props }, ref) => {
-  // Random width between 50 to 90%.
+  // Deterministic "random-ish" width between 50% and 90% (inclusive).
+  const stableId = React.useId();
   const width = React.useMemo(() => {
-    return `${Math.floor(Math.random() * 40) + 50}%`;
-  }, []);
+    const hash = hashStringToUint32(stableId);
+    const percent = 50 + (hash % 41);
+    return `${percent}%`;
+  }, [stableId]);
+
+  const skeletonStyle: React.CSSProperties & { "--skeleton-width": string } = {
+    "--skeleton-width": width,
+  };
 
   return (
     <div
@@ -554,11 +571,7 @@ const SidebarMenuSkeleton = React.forwardRef<
       <Skeleton
         className="h-4 max-w-[--skeleton-width] flex-1"
         data-sidebar="menu-skeleton-text"
-        style={
-          {
-            "--skeleton-width": width,
-          } as React.CSSProperties
-        }
+        style={skeletonStyle}
       />
     </div>
   );
