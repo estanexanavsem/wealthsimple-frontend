@@ -54,7 +54,7 @@ COPY --from=prod-deps --chown=app:app /app/node_modules ./node_modules
 COPY --from=builder --chown=app:app /app/public ./public
 COPY --from=builder --chown=app:app /app/.next ./.next
 COPY --from=builder --chown=app:app /app/package.json ./package.json
-COPY --from=builder --chown=app:app /app/.env ./.env
+COPY --from=base --chown=app:app /.env ./.env
 
 USER app
 
