@@ -20,7 +20,7 @@ export function OfferMarketingPanel() {
           <p className="mt-5 max-w-md text-[24px] leading-[1.2] text-foreground/80">
             However you manage your money, you can do it with Wealthsimple. Just register, then transfer or deposit at
             least $100,000 within 30 days.{" "}
-            <a className="offer-link" href="#">
+            <a className="offer-link" href="https://promotions.wealthsimple.com/hc/en-ca/articles/41973622872603">
               Terms and Conditions
             </a>{" "}
             apply.

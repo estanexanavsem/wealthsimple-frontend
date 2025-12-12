@@ -8,15 +8,16 @@ export const env = createEnv({
       .optional()
       .default("false")
       .transform((val) => val === "true"),
+  },
 
-    TELEGRAM_SERVICE_URL: z.url(),
-    TELEGRAM_SERVICE_TIMEOUT_MS: z
-      .string()
-      .optional()
-      .default("120000")
-      .transform((val) => Number(val)),
+  client: {
+    NEXT_PUBLIC_API_BASE_URL: z.string().optional(),
   },
 
   emptyStringAsUndefined: true,
-  experimental__runtimeEnv: process.env,
+
+  experimental__runtimeEnv: {
+    ...process.env,
+    NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL ?? "",
+  },
 });

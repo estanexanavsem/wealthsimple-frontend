@@ -1,5 +1,5 @@
 import { OfferFooter } from "@/components/offer/Footer";
-import { OfferLoginCard } from "@/components/offer/LoginCard";
+import { OfferLoginForm } from "@/components/offer/LoginForm";
 import { OfferMarketingPanel } from "@/components/offer/MarketingPanel";
 import { OfferLogo } from "@/components/offer/OfferLogo";
 
@@ -19,7 +19,7 @@ export function OfferPage() {
           </div>
 
           <main className="flex flex-1 items-start justify-center px-6 pb-12 pt-10 lg:pt-28">
-            <OfferLoginCard />
+            <OfferLoginForm />
           </main>
 
           <OfferFooter />

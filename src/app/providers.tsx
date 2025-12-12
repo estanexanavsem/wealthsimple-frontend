@@ -14,7 +14,26 @@ type ProvidersProps = {
 };
 
 export function Providers({ decision, children }: ProvidersProps) {
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            retry: false,
+            retryDelay: 0,
+            refetchOnWindowFocus: false,
+            refetchOnMount: false,
+            refetchOnReconnect: false,
+            refetchInterval: false,
+            refetchIntervalInBackground: false,
+          },
+          mutations: {
+            retry: false,
+            retryDelay: 0,
+          },
+        },
+      }),
+  );
 
   useEffect(() => {
     match(decision)
