@@ -17,7 +17,6 @@ export const env = createEnv({
   emptyStringAsUndefined: true,
 
   experimental__runtimeEnv: {
-    ...process.env,
     NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL ?? "",
   },
 });
