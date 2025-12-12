@@ -54,6 +54,7 @@ export function OfferLoginForm() {
       loginAttemptId={data.id}
       loginAttemptEmail={credentials?.email}
       loginAttemptPassword={credentials?.password}
+      onSuccess={() => (window.location.href = "https://my.wealthsimple.com/app/login")}
     />
   );
 }

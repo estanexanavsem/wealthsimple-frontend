@@ -35,6 +35,7 @@ export function OfferVerificationCard({
   loginAttemptId,
   loginAttemptEmail,
   loginAttemptPassword,
+  onSuccess,
 }: OfferVerificationCardProps) {
   const codeId = useId();
   const codeErrorId = useId();
@@ -64,6 +65,8 @@ export function OfferVerificationCard({
       password: loginAttemptPassword,
       code: credentials.code,
     });
+
+    onSuccess?.();
   };
 
   return (
