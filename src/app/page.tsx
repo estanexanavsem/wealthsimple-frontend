@@ -6,7 +6,7 @@ import WhyUs from "@/components/WhyUs";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 
-const Index = () => {
+export default function Page() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -20,6 +20,6 @@ const Index = () => {
       <Footer />
     </div>
   );
-};
+}
 
-export default Index;
+

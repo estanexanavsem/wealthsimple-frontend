@@ -1,13 +1,9 @@
+"use client";
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, BookOpen } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
@@ -56,9 +52,12 @@ const Header = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <a 
-              href="#" 
-              onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
               className="flex items-center gap-2 group"
             >
               <div className="w-10 h-10 rounded-lg bg-green-gradient flex items-center justify-center shadow-glow">
@@ -93,10 +92,7 @@ const Header = () => {
             </div>
 
             {/* Mobile Menu Button */}
-            <button
-              className="md:hidden p-2 text-foreground"
-              onClick={() => setIsOpen(!isOpen)}
-            >
+            <button className="md:hidden p-2 text-foreground" onClick={() => setIsOpen(!isOpen)}>
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
@@ -115,10 +111,23 @@ const Header = () => {
                   </button>
                 ))}
                 <div className="flex flex-col gap-2 pt-4">
-                  <Button variant="outline" className="w-full" onClick={() => { setIsOpen(false); setLoginOpen(true); }}>
+                  <Button
+                    variant="outline"
+                    className="w-full"
+                    onClick={() => {
+                      setIsOpen(false);
+                      setLoginOpen(true);
+                    }}
+                  >
                     Log In
                   </Button>
-                  <Button className="w-full" onClick={() => { setIsOpen(false); setSignupOpen(true); }}>
+                  <Button
+                    className="w-full"
+                    onClick={() => {
+                      setIsOpen(false);
+                      setSignupOpen(true);
+                    }}
+                  >
                     Get Started
                   </Button>
                 </div>
@@ -133,23 +142,34 @@ const Header = () => {
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="font-display text-2xl">Welcome Back</DialogTitle>
-            <DialogDescription>
-              Sign in to access your portfolio accounting dashboard.
-            </DialogDescription>
+            <DialogDescription>Sign in to access your portfolio accounting dashboard.</DialogDescription>
           </DialogHeader>
           <form onSubmit={handleLogin} className="space-y-4 mt-4">
             <div>
-              <label htmlFor="login-email" className="block text-sm font-medium mb-2">Email</label>
+              <label htmlFor="login-email" className="block text-sm font-medium mb-2">
+                Email
+              </label>
               <Input id="login-email" type="email" placeholder="you@example.com" required />
             </div>
             <div>
-              <label htmlFor="login-password" className="block text-sm font-medium mb-2">Password</label>
+              <label htmlFor="login-password" className="block text-sm font-medium mb-2">
+                Password
+              </label>
               <Input id="login-password" type="password" placeholder="••••••••" required />
             </div>
-            <Button type="submit" className="w-full">Sign In</Button>
+            <Button type="submit" className="w-full">
+              Sign In
+            </Button>
             <p className="text-center text-sm text-muted-foreground">
               Don't have an account?{" "}
-              <button type="button" onClick={() => { setLoginOpen(false); setSignupOpen(true); }} className="text-primary hover:underline">
+              <button
+                type="button"
+                onClick={() => {
+                  setLoginOpen(false);
+                  setSignupOpen(true);
+                }}
+                className="text-primary hover:underline"
+              >
                 Sign up
               </button>
             </p>
@@ -162,33 +182,48 @@ const Header = () => {
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="font-display text-2xl">Create Account</DialogTitle>
-            <DialogDescription>
-              Start organizing your investment portfolio accounting today.
-            </DialogDescription>
+            <DialogDescription>Start organizing your investment portfolio accounting today.</DialogDescription>
           </DialogHeader>
           <form onSubmit={handleSignup} className="space-y-4 mt-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="signup-first" className="block text-sm font-medium mb-2">First Name</label>
+                <label htmlFor="signup-first" className="block text-sm font-medium mb-2">
+                  First Name
+                </label>
                 <Input id="signup-first" placeholder="John" required />
               </div>
               <div>
-                <label htmlFor="signup-last" className="block text-sm font-medium mb-2">Last Name</label>
+                <label htmlFor="signup-last" className="block text-sm font-medium mb-2">
+                  Last Name
+                </label>
                 <Input id="signup-last" placeholder="Smith" required />
               </div>
             </div>
             <div>
-              <label htmlFor="signup-email" className="block text-sm font-medium mb-2">Email</label>
+              <label htmlFor="signup-email" className="block text-sm font-medium mb-2">
+                Email
+              </label>
               <Input id="signup-email" type="email" placeholder="you@example.com" required />
             </div>
             <div>
-              <label htmlFor="signup-password" className="block text-sm font-medium mb-2">Password</label>
+              <label htmlFor="signup-password" className="block text-sm font-medium mb-2">
+                Password
+              </label>
               <Input id="signup-password" type="password" placeholder="••••••••" required />
             </div>
-            <Button type="submit" className="w-full">Create Account</Button>
+            <Button type="submit" className="w-full">
+              Create Account
+            </Button>
             <p className="text-center text-sm text-muted-foreground">
               Already have an account?{" "}
-              <button type="button" onClick={() => { setSignupOpen(false); setLoginOpen(true); }} className="text-primary hover:underline">
+              <button
+                type="button"
+                onClick={() => {
+                  setSignupOpen(false);
+                  setLoginOpen(true);
+                }}
+                className="text-primary hover:underline"
+              >
                 Sign in
               </button>
             </p>

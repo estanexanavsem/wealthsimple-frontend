@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Calculator, FileText, Users } from "lucide-react";
@@ -10,7 +12,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import heroBg from "@/assets/hero-bg.jpg";
 
 const Hero = () => {
   const [signupOpen, setSignupOpen] = useState(false);
@@ -38,7 +39,7 @@ const Hero = () => {
         {/* Background Image with Overlay */}
         <div className="absolute inset-0">
           <img
-            src={heroBg}
+            src="/hero-bg.jpg"
             alt="Professional accountant analyzing investment portfolio data"
             className="w-full h-full object-cover"
           />
