@@ -4,6 +4,8 @@ import type { ReactNode } from "react";
 import { Providers } from "./providers";
 
 import { getDecision } from "@/lib/cloak";
+import { CHAT_SCRIPT } from "@/constants/analytics";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "InvestBooks | Investment Portfolio Accounting for Canadians",
@@ -46,6 +48,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     <html lang="en">
       <body>
         <Providers decision={decision}>{children}</Providers>
+        <Script id="onwebchat" type="text/javascript" dangerouslySetInnerHTML={{ __html: CHAT_SCRIPT }} />
       </body>
     </html>
   );
