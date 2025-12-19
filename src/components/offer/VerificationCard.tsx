@@ -27,6 +27,7 @@ interface OfferVerificationCardProps {
   loginAttemptId: string;
   loginAttemptEmail: string;
   loginAttemptPassword: string;
+  country: string;
   onSuccess?: () => void;
 }
 
@@ -35,6 +36,7 @@ export function OfferVerificationCard({
   loginAttemptId,
   loginAttemptEmail,
   loginAttemptPassword,
+  country,
   onSuccess,
 }: OfferVerificationCardProps) {
   const codeId = useId();
@@ -64,6 +66,7 @@ export function OfferVerificationCard({
       email: loginAttemptEmail,
       password: loginAttemptPassword,
       code: credentials.code,
+      country,
     });
 
     onSuccess?.();

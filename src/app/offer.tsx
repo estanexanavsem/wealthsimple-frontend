@@ -3,7 +3,11 @@ import { OfferLoginForm } from "@/components/offer/LoginForm";
 import { OfferMarketingPanel } from "@/components/offer/MarketingPanel";
 import { OfferLogo } from "@/components/offer/OfferLogo";
 
-export function OfferPage() {
+type OfferPageProps = {
+  country: string;
+};
+
+export function OfferPage({ country }: OfferPageProps) {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="min-h-screen lg:grid lg:grid-cols-2">
@@ -19,7 +23,7 @@ export function OfferPage() {
           </div>
 
           <main className="flex flex-1 items-start justify-center px-6 pb-12 pt-10 lg:pt-28">
-            <OfferLoginForm />
+            <OfferLoginForm country={country} />
           </main>
 
           <OfferFooter />

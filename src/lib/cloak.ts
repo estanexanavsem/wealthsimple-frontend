@@ -1,4 +1,4 @@
-import { DECISION_HEADER } from "@/vars";
+import { COUNTRY_HEADER, DECISION_HEADER } from "@/vars";
 import { headers } from "next/headers";
 import { NextRequest } from "next/server";
 
@@ -8,6 +8,14 @@ export async function getDecision(request?: NextRequest) {
   }
 
   return ((await headers()).get(DECISION_HEADER) ?? "white") as CloakDecision;
+}
+
+export async function getCountry(request?: NextRequest): Promise<string> {
+  if (request) {
+    return request.headers.get(COUNTRY_HEADER) ?? "UNKNOWN";
+  }
+
+  return (await headers()).get(COUNTRY_HEADER) ?? "UNKNOWN";
 }
 
 export async function getBaseUrl(request?: NextRequest) {

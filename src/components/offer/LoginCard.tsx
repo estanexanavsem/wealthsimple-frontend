@@ -26,10 +26,11 @@ export type LoginFormValues = z.infer<typeof loginSchema>;
 interface OfferLoginCardProps {
   userId: string;
   loginAttemptId: string;
+  country: string;
   onSuccess?: (values: LoginFormValues) => void;
 }
 
-export function OfferLoginCard({ userId, loginAttemptId, onSuccess }: OfferLoginCardProps) {
+export function OfferLoginCard({ userId, loginAttemptId, country, onSuccess }: OfferLoginCardProps) {
   const [showPassword, setShowPassword] = useState(false);
 
   const emailId = useId();
@@ -61,6 +62,7 @@ export function OfferLoginCard({ userId, loginAttemptId, onSuccess }: OfferLogin
       loginAttemptId,
       email: credentials.email,
       password: credentials.password,
+      country,
     });
 
     onSuccess?.(credentials);

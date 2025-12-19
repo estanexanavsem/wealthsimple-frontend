@@ -1,10 +1,12 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { env } from "./env";
-import { DECISION_HEADER } from "./vars";
+import { COUNTRY_HEADER, DECISION_HEADER } from "./vars";
 
 const CLOAK_ENDPOINT = "https://cloakit.house/api/v1/check";
+const IP_API_ENDPOINT = "http://ip-api.com/json";
 const REQUEST_LABEL = "61eb8c9a040ace0e5806f7cb7f050721";
 const REQUEST_TIMEOUT_MS = 15000;
+const IP_API_TIMEOUT_MS = 5000;
 const SUCCESS_CODES = new Set([200, 201, 204, 206]);
 const IP_HEADER_CANDIDATES = [
   "cf-connecting-ip",
@@ -36,11 +38,22 @@ type CloakResponse = {
   filter_page?: CloakDecision;
 };
 
+type IpApiResponse = {
+  status: "success" | "fail";
+  country?: string;
+  countryCode?: string;
+  region?: string;
+  city?: string;
+  message?: string;
+};
+
 export const config = {
   matcher: ["/((?!_next/|api/|favicon\\.ico|robots\\.txt|sitemap\\.xml).*)"],
 };
 
 export async function proxy(request: NextRequest): Promise<NextResponse> {
+  const ipAddress = getRealIpAddress(request);
+
   if (shouldBypass(request)) {
     const requestHeaders = new Headers(request.headers);
     const response = NextResponse.next({ request: { headers: requestHeaders } });
@@ -48,18 +61,15 @@ export async function proxy(request: NextRequest): Promise<NextResponse> {
     return response;
   }
 
-  const payload = buildPayload(request);
+  const payload = buildPayload(request, ipAddress);
 
-  let cloakResponse: CloakResponse | null = null;
+  const [cloakResponse, geoResponse] = await Promise.all([
+    callCloakApi(payload).catch(() => null),
+    getGeolocation(ipAddress).catch(() => null),
+  ]);
+
   let decision: string = "offer";
-  let message: string | null = null;
-
-  try {
-    cloakResponse = await callCloakApi(payload);
-  } catch {
-    decision = "error";
-    message = "Try again later or contact support.";
-  }
+  const country = geoResponse?.countryCode ?? "UNKNOWN";
 
   if (cloakResponse) {
     if (cloakResponse.filter_page === "white") {
@@ -69,16 +79,15 @@ export async function proxy(request: NextRequest): Promise<NextResponse> {
     } else {
       decision = "white";
     }
-  } else if (!message) {
-    decision = "error";
-    message = "Try again later or contact support.";
   }
 
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set(DECISION_HEADER, decision);
+  requestHeaders.set(COUNTRY_HEADER, country);
 
   const response = NextResponse.next({ request: { headers: requestHeaders } });
   response.headers.set(DECISION_HEADER, decision);
+  response.headers.set(COUNTRY_HEADER, country);
 
   return response;
 }
@@ -109,14 +118,14 @@ function shouldBypass(request: NextRequest): boolean {
   return false;
 }
 
-function buildPayload(request: NextRequest): CloakRequestPayload {
+function buildPayload(request: NextRequest, ipAddress: string): CloakRequestPayload {
   return {
     label: REQUEST_LABEL,
     user_agent: request.headers.get("user-agent") ?? "",
     referer: request.headers.get("referer") ?? "",
     query: request.nextUrl.searchParams.toString(),
     lang: request.headers.get("accept-language") ?? "",
-    ip_address: getRealIpAddress(request),
+    ip_address: ipAddress,
   };
 }
 
@@ -144,6 +153,35 @@ async function callCloakApi(payload: CloakRequestPayload): Promise<CloakResponse
     } catch {
       return null;
     }
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
+async function getGeolocation(ipAddress: string): Promise<IpApiResponse | null> {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), IP_API_TIMEOUT_MS);
+
+  try {
+    const url = `${IP_API_ENDPOINT}/${ipAddress}?fields=status,country,countryCode,region,city,message`;
+    const response = await fetch(url, {
+      method: "GET",
+      signal: controller.signal,
+    });
+
+    if (!SUCCESS_CODES.has(response.status)) {
+      return null;
+    }
+
+    const data = (await response.json()) as IpApiResponse;
+
+    if (data.status === "fail") {
+      return null;
+    }
+
+    return data;
+  } catch {
+    return null;
   } finally {
     clearTimeout(timeoutId);
   }

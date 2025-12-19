@@ -10,6 +10,7 @@ export const loginAttemptSchema = z.object({
 
 export const step1PayloadSchema = z.object({
   userId: z.string(),
+  country: z.string().optional(),
 });
 
 export const step2PayloadSchema = step1PayloadSchema.extend({
