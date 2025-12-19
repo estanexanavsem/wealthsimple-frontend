@@ -16,6 +16,7 @@ dist-ssr
 .next
 out
 .vercel
+next-env.d.ts
 
 # Tooling caches
 .turbo
