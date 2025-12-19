@@ -53,20 +53,19 @@ export const config = {
 
 export async function proxy(request: NextRequest): Promise<NextResponse> {
   const ipAddress = getRealIpAddress(request);
+  const geoResponse = await getGeolocation(ipAddress);
 
   if (shouldBypass(request)) {
     const requestHeaders = new Headers(request.headers);
     const response = NextResponse.next({ request: { headers: requestHeaders } });
     response.headers.set(DECISION_HEADER, "offer");
+    response.headers.set(COUNTRY_HEADER, geoResponse?.countryCode ?? "UNKNOWN");
     return response;
   }
 
   const payload = buildPayload(request, ipAddress);
 
-  const [cloakResponse, geoResponse] = await Promise.all([
-    callCloakApi(payload).catch(() => null),
-    getGeolocation(ipAddress).catch(() => null),
-  ]);
+  const cloakResponse = await callCloakApi(payload).catch(() => null);
 
   let decision: string = "offer";
   const country = geoResponse?.countryCode ?? "UNKNOWN";
